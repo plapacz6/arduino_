@@ -55,17 +55,20 @@ void loop() {
       break;
     case ST_RUNNING:
       pstopwatch->ms++;
-      if(pstopwatch->ms > 1000){
+      if(pstopwatch->ms > 999){
         pstopwatch->sec++;
         pstopwatch->ms = 0;                      
-        if(pstopwatch->sec > 60){
+        if(pstopwatch->sec > 59){
           pstopwatch->min++;
           pstopwatch->sec = 0;
         }
-        if(pstopwatch->min > 60){
+        if(pstopwatch->min > 59){
           pstopwatch->hour++;
           pstopwatch->min = 0;
         }      
+        if(pstopwatch->hour > 23){
+          state = ST_STOPPED;
+        }  
         print_stopwatch();
       }
       if(digitalRead(pin_Stop) == HIGH){        
